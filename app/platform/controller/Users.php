@@ -34,7 +34,7 @@ class Users extends BaseController
                 return result('账号错误');
             }
             //验证密码
-            $res = $usersService->login($this->param['email'],$this->param['password']);
+            $res = $usersService->verifyPwd($this->param['email'],$this->param['password']);
             if($res){
                 //获取token
                 $token = $usersService->getToken($this->param['email']);
@@ -94,6 +94,11 @@ class Users extends BaseController
         }
     }
 
+    /**添加用户
+     * @param UsersService $usersService
+     * @param Validate $validateService
+     * @return \think\response\Json
+     */
     public function addUsers(UsersService $usersService,Validate $validateService){
         try{
             $this->param = $this->request->param();
@@ -141,13 +146,6 @@ class Users extends BaseController
                 rollback();
                 return result('账号错误');
             }
-            //验证用户ID与对应邮箱是否匹配
-            $verify = $usersService->verify($this->param['id'],$this->param['email']);
-            if(!$verify){
-                return result('非法操作');
-            }
-            //密码验证 加密
-
             $validate = $validateService->rule($this->param['password']);
             if(!$validate === true){
                 rollback();

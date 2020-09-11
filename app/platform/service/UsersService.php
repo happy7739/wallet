@@ -15,19 +15,9 @@ class UsersService extends Service
      * @param string $password
      * @return bool
      */
-    public function login(string $email, string $password) : bool {
+    public function verifyPwd(string $email, string $password) : bool {
         $db_pwd = Users::where('email',$email)->value('password');
         return Rsa::decode($db_pwd) === $password;
-    }
-
-    /**验证ID与对应邮箱是否匹配
-     * @param int $id
-     * @param string $email
-     * @return bool
-     */
-    public function verify(int $id, string $email) : bool {
-        $db_id = Users::where('email',$email)->value('id');
-        return $db_id === $id;
     }
 
     /**注册账号
