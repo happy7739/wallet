@@ -114,4 +114,22 @@ class UsersService extends Service
         $data['status'] = (int)$now ? 0 : 1;
         return Users::modify($id,$data);
     }
+
+    /**
+     * 生成TOKEN，并绑定登录用户
+     * @param string $email
+     * @return string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * Date: 2020/8/21 16:22
+     */
+    public function getToken(string $email) : string{
+        $user = Users::where('email',$email)->find();
+        request()->userId = $user->id;
+        $token = strtoupper(hash('md5',$user->email.time()));
+        cache($token,$user);
+        cache($token.'stamp',time()+STILL_TIME);
+        return $token;
+    }
 }

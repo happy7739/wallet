@@ -22,8 +22,14 @@ class Test extends BaseController
 
     public function index(){
         $param = $this->request->param();
-
-        return 1 ? 0 : 1;
+        $email = '773900001@qq.com';
+        $user = Users::where('email',$email)->find();
+        request()->userId = $user->id;
+        $token = strtoupper(hash('md5',$user->email.time()));
+        cache($token,$user);
+        cache($token.'stamp',time()+STILL_TIME);
+        return $token;
+        //die();
 
         //TP6各个文件定义解析：
         //controller 处理入参（表单验证，参数过滤，参数包装）

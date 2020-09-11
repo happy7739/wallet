@@ -36,7 +36,9 @@ class Users extends BaseController
             //验证密码
             $res = $usersService->login($this->param['email'],$this->param['password']);
             if($res){
-                return result(lang('Login successful'),[],StatusCode::$SUCCESS) ;
+                //获取token
+                $token = $usersService->getToken($this->param['email']);
+                return result(lang('Login successful'),['token'=>$token],StatusCode::$SUCCESS) ;
             }else{
                 return result(lang('Password error')) ;
             }
