@@ -19,6 +19,7 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
     //无需验证权限
     Route::group('common/',function (){
         Route::get('/test','test/index');
+        Route::get('/repeat','test/repeat');
 
         //获取图形验证码
         Route::get('/imgCode','auth/imgCode');
@@ -49,6 +50,37 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         Route::post('/usersStatus','Users/status');
         //删除用户
         Route::post('/usersDel','Users/del');
+
+        //新增静态收益数据设置
+        Route::post('/addProfit','Profit/add');
+        //删除静态收益数据设置
+        Route::post('/delProfit','Profit/del');
+        //修改静态收益数据设置
+        Route::post('/modifyProfit','Profit/modify');
+        //静态收益数据列表
+        Route::get('/listsProfit','Profit/lists');
+
+        //新增动态收益数据设置
+        Route::post('/dynamicAdd','Dynamic/add');
+        //删除动态收益数据设置
+        Route::post('/dynamicDel','Dynamic/del');
+        //修改动态收益数据设置
+        Route::post('/dynamicModify','Dynamic/modify');
+        //动态收益数据列表
+        Route::get('/dynamicLists','Dynamic/lists');
+
+        //新增团队收益数据设置
+        Route::post('/teamAdd','Team/add');
+        //删除团队收益数据设置
+        Route::post('/teamDel','Team/del');
+        //修改团队收益数据设置
+        Route::post('/teamModify','Team/modify');
+        //团队收益数据列表
+        Route::get('/teamLists','Team/lists');
+
+        //购买合约
+        Route::post('/purchase','Purchase/index');
+
     })->middleware(VisitLimit::class);
     //
     Route::group(function (){
@@ -67,6 +99,22 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
 
         Route::get('/tradeOrderLists','TradeOrder/lists');//委托列表
         Route::post('/delOrder','TradeOrder/cancel');//撤销委托
+
+
+        Route::post('/profitAdd','Profit/add');//新增静态收益数据设置
+        Route::post('/profitDel','Profit/del');//删除静态收益数据设置
+        Route::post('/profitModify','Profit/modify');//修改静态收益数据设置
+        Route::get('/profitLists','Profit/lists');//静态收益数据列表
+
+        Route::post('/dynamicAdd','Dynamic/add');//新增动态收益数据设置
+        Route::post('/dynamicDel','Dynamic/del');//删除动态收益数据设置
+        Route::post('/dynamicModify','Dynamic/modify');//修改动态收益数据设置
+        Route::get('/dynamicLists','Dynamic/lists');//动态收益数据列表
+
+        Route::post('/teamAdd','Team/add');//新增团队收益数据设置
+        Route::post('/teamDel','Team/del');//删除团队收益数据设置
+        Route::post('/teamModify','Team/modify');//修改团队收益数据设置
+        Route::get('/teamLists','Team/lists');//团队收益数据列表
 
     })->middleware([CheckAdminToken::class,Power::class,Sign::class,VisitLimit::class]);
     Route::miss(function() {

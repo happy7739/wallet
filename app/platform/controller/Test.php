@@ -5,14 +5,19 @@ namespace app\platform\controller;
 
 use app\common\controller\Redis;
 use app\common\controller\StatusCode;
+use app\common\model\Capital;
+use app\common\model\Contract;
+use app\common\model\Profit;
 use app\common\model\Relationship;
 use app\common\model\Users;
 use app\common\service\SendService;
 use app\common\service\SocketService;
+use app\common\service\Validate;
 use app\platform\service\DemoService;
 use app\common\model\TradeOrder;
 use app\platform\service\MarketService;
 use app\platform\service\TradeOrderService;
+use app\platform\service\UsersService;
 use org\Rsa;
 use think\facade\Db;
 
@@ -20,17 +25,20 @@ use think\facade\Db;
 class Test extends BaseController
 {
 
-    public function index(){
+    public function index(Validate $validate){
         $param = $this->request->param();
-        $email = '773900001@qq.com';
-        $user = Users::where('email',$email)->find();
-        request()->userId = $user->id;
-        $token = strtoupper(hash('md5',$user->email.time()));
-        cache($token,$user);
-        cache($token.'stamp',time()+STILL_TIME);
-        return $token;
-        //die();
-
+        /*$where = [];
+        $where[] = ['user_id','=',1];
+        $res = Capital::lists($where,['user_id'],['users'],'')->toArray();
+        dump($res);
+        die();*/
+        /*$where = [];
+        $where[] = ['id','=',1];
+        $res = Users::lists($where,[],['capital'],'')->toArray();
+        print_r($res);
+        die();*/
+        $count = Contract::where('id',5)->count();
+        return $count;
         //TP6各个文件定义解析：
         //controller 处理入参（表单验证，参数过滤，参数包装）
         //service 注入到controller 处理业务。采用一个service处理一个业务，复杂业务或者核心业务采用一个方法对应一个小步骤的写法，高度解耦程序
@@ -54,6 +62,31 @@ class Test extends BaseController
         // 劣势：
         // 代码东一块，西一块，不熟悉TP6的人找不到代码位置
 
+    }
+
+    public function repeat(UsersService $usersService){
+        $pid = 1;
+        $num = 0;
+        for($i = 0;$i < 10;$i++){
+            if($pid < 10){
+                $email = '773900'.$pid;
+                if(($pid+1) < 10){
+                    $email = $email.'0'.($pid+1);
+                }else{
+                    $email = $email.($pid+1);
+                }
+            }else{
+                $email = '77390'.$pid.($pid+1);
+            }
+            $email = $email.'@qq.com';
+            $password = 'qq123456';
+            $res = $usersService->register($email,$password,$pid);
+            if($res){
+                $num++;
+            }
+            $pid++;
+        }
+        return $num;
     }
 
 }

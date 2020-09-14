@@ -229,4 +229,29 @@ abstract class BaseValidate extends Validate
             return lang('CODE_NOT_EXIST');
         }
     }
+
+    /**验证收益率
+     * @param $num
+     * @return bool|string
+     */
+    public function profit($num){
+        if (is_numeric($num) && bccomp($num, '0') === 1 && bccomp($num, '100') === -1){
+            return true;
+        }else{
+            return '收益率数据错误';
+        }
+    }
+
+    /**非零
+     * @param $num
+     * @return bool|string
+     */
+    public function nonZero($num){
+        if((int)$num !== 0){
+            return true;
+        }else{
+            return '数值不能为零';
+        }
+    }
+
 }

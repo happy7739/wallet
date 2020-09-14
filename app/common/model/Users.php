@@ -18,4 +18,8 @@ class Users extends BaseModel
     protected $autoWriteTimestamp = true; //开启自动写入时间
     protected $updateTime = false;//关闭修改时间写入
     static protected $table_name = '用户';
+
+    public function capital(){
+        return $this->hasOne('capital','user_id')->bind(['balance','fund']);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace app\platform\service;
 
+use app\common\model\Capital;
 use app\common\model\Relationship;
 use app\common\model\Users;
 use org\Rsa;
@@ -61,7 +62,10 @@ class UsersService extends Service
                     $ship['sp_id'] = $relat['sp_id'].$pid.',';// 所有上级ID
                 }
             }
+            //创建关系
             $resp = Relationship::create($ship);
+            //创建资金账户
+            Capital::create(['user_id'=>$user_id]);
         }
         return $res;
     }

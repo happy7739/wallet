@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f6ed624b-f20e-47df-a782-6078e228aa91" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/common/model/Relationship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/model/Relationship.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/model/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/model/Users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/validate/BaseValidate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/validate/BaseValidate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/controller/Test.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/controller/Test.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/route/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/route/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/service/UsersService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/service/UsersService.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/opis/closure" />
+      <path value="$PROJECT_DIR$/vendor/swoole/ide-helper" />
+      <path value="$PROJECT_DIR$/vendor/open-smf/connection-pool" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/nette/php-generator" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem-cached-adapter" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-captcha" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-multi-app" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-trace" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-orm" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-helper" />
+      <path value="$PROJECT_DIR$/vendor/topthink/framework" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-swoole" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1hIhBoeeiZ4vUo3bW4ZLUQr6lay" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/common/model" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\phpstudy_pro\WWW\auth_check-dev-3" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\phpstudy_pro\WWW\wallet\app\common\model" />
+      <recent name="D:\phpstudy_pro\WWW\auth_check-dev-3\app\common\model" />
+      <recent name="D:\phpstudy_pro\WWW\auth_check-dev-3\app\platform\validate" />
+      <recent name="D:\phpstudy_pro\WWW\auth_check-dev-3" />
+      <recent name="D:\phpstudy_pro\WWW\auth_check-dev-3\app" />
+    </key>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f6ed624b-f20e-47df-a782-6078e228aa91" name="Default Changelist" comment="" />
+      <created>1599704380892</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599704380892</updated>
+      <workItem from="1599704382492" duration="289000" />
+      <workItem from="1599704863929" duration="2681000" />
+      <workItem from="1599785706041" duration="27567000" />
+      <workItem from="1599816968513" duration="344000" />
+      <workItem from="1599817324841" duration="28000" />
+      <workItem from="1599817375801" duration="1361000" />
+      <workItem from="1600044955896" duration="22927000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="690" y="280" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600074788034">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="690" y="280" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1600074788034" />
+    <state x="740" y="280" key="FileChooserDialogImpl" timestamp="1600064480586">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="740" y="280" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1600064480586" />
+    <state x="658" y="338" key="NewPhpClassDialog" timestamp="1600072226311">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="658" y="338" key="NewPhpClassDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1600072226311" />
+    <state x="636" y="258" width="647" height="534" key="find.popup" timestamp="1599811821805">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="636" y="258" width="647" height="534" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1599811821805" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1599796951882">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1599796951882" />
+  </component>
+</project>
