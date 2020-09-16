@@ -9,7 +9,7 @@ use app\platform\service\PurchaseService;
 use app\common\model\Task;
 use think\exception\ValidateException;
 
-class Test
+class Happy
 {
     /**
      * 事件监听处理
@@ -18,7 +18,6 @@ class Test
      */
     public function handle($event,PurchaseService $purchaseService,TaskService $taskService,ContractService $contractService)
     {
-        $num = 1;
         do {
             //查询计划任务数据库
             $arr = Task::where('status',0)
@@ -112,7 +111,7 @@ class Test
             }
             dump(time());
             sleep(5);
-        } while ($num == 1);
+        } while (true);
         dump('buy Test listener');
     }
 

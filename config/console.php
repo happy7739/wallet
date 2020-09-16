@@ -5,6 +5,6 @@
 return [
     // 指令定义
     'commands' => [
-        'test'  => 'app\command\test'
+        'happy'  => 'app\command\happy'
     ],
 ];

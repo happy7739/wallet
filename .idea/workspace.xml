@@ -3,18 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="f6ed624b-f20e-47df-a782-6078e228aa91" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/model/BaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/model/BaseModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/model/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/model/Transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/command/test.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/event.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/event.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/platform/controller/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/controller/Purchase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/listener/Test.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/platform/controller/Test.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/controller/Test.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/platform/route/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/route/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/platform/service/PurchaseService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/service/PurchaseService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/service/PurchaseService.php.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/service/PurchaseService.php2.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/service/PurchaseService.php3.bat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/config/console.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/console.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runtime/cache/69/ddc63b6a1b64cf2ec6d5baedf6adc7.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runtime/platform/log/202009/10.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runtime/platform/log/202009/11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runtime/platform/log/202009/14.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,18 +80,18 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/platform/service" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/listener" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\phpstudy_pro\WWW\auth_check-dev-3" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\phpstudy_pro\WWW\wallet\app\listener" />
+      <recent name="D:\phpstudy_pro\WWW\wallet\app\command" />
       <recent name="D:\phpstudy_pro\WWW\wallet\app\platform\service" />
       <recent name="D:\phpstudy_pro\WWW\wallet\app\common\model" />
-      <recent name="D:\phpstudy_pro\WWW\wallet\app\command" />
       <recent name="D:\phpstudy_pro\WWW\wallet\app\middleware" />
-      <recent name="D:\phpstudy_pro\WWW\auth_check-dev-3\app\common\model" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -128,7 +124,7 @@
       <workItem from="1599817375801" duration="1361000" />
       <workItem from="1600044955896" duration="22927000" />
       <workItem from="1600130990651" duration="31227000" />
-      <workItem from="1600217751816" duration="23151000" />
+      <workItem from="1600217751816" duration="23956000" />
     </task>
     <servers />
   </component>
@@ -152,10 +148,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="776" y="448" key="NewPhpFileDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1600152709499" />
-    <state x="636" y="182" width="906" height="610" key="find.popup" timestamp="1600238258546">
+    <state x="636" y="182" width="906" height="610" key="find.popup" timestamp="1600247446303">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="636" y="182" width="906" height="610" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1600238258546" />
+    <state x="636" y="182" width="906" height="610" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1600247446303" />
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1600237540310">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

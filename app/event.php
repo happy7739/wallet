@@ -13,7 +13,7 @@ return [
 
     'listen'    => [
         'swoole.task' => [ app\listener\Task::class],
-        'testListen'=>['app\listener\Test']
+        'happyListen'=>['app\listener\Happy']
     ],
 
     'subscribe' => [

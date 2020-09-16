@@ -32,22 +32,6 @@ class Test extends BaseController
         $param = $this->request->param();
 
 
-        $list = Transaction::where('contract_id',9)
-            ->where('type',2)
-            ->where('status',0)
-            ->lock(true)
-            //->field('id,price,user_id')
-            ->select();
-        foreach ($list as $key => $val){
-            $val->status = 1;
-            $val->fulfil_time = time();
-            $res = $val->save();
-            dump($val->id);
-        }
-
-
-
-
         //TP6各个文件定义解析：
         //controller 处理入参（表单验证，参数过滤，参数包装）
         //service 注入到controller 处理业务。采用一个service处理一个业务，复杂业务或者核心业务采用一个方法对应一个小步骤的写法，高度解耦程序

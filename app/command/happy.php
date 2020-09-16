@@ -9,19 +9,19 @@ use think\console\input\Argument;
 use think\console\input\Option;
 use think\console\Output;
 
-class test extends Command
+class happy extends Command
 {
     protected function configure()
     {
         // 指令配置
-        $this->setName('test')
+        $this->setName('happy')
             ->setDescription('自定义命令');
     }
 
     protected function execute(Input $input, Output $output)
     {
     	// 指令输出
-        event('testListen');
-    	$output->writeln('test');
+        event('happyListen');
+    	$output->writeln('happy');
     }
 }
