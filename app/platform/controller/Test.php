@@ -9,7 +9,10 @@ use app\common\model\Capital;
 use app\common\model\Contract;
 use app\common\model\Profit;
 use app\common\model\Relationship;
+use app\common\model\Task;
+use app\common\model\Transaction;
 use app\common\model\Users;
+use app\common\model\Dynamic;
 use app\common\service\SendService;
 use app\common\service\SocketService;
 use app\common\service\Validate;
@@ -27,18 +30,24 @@ class Test extends BaseController
 
     public function index(Validate $validate){
         $param = $this->request->param();
-        /*$where = [];
-        $where[] = ['user_id','=',1];
-        $res = Capital::lists($where,['user_id'],['users'],'')->toArray();
-        dump($res);
-        die();*/
-        /*$where = [];
-        $where[] = ['id','=',1];
-        $res = Users::lists($where,[],['capital'],'')->toArray();
-        print_r($res);
-        die();*/
-        $count = Contract::where('id',5)->count();
-        return $count;
+
+
+        $list = Transaction::where('contract_id',9)
+            ->where('type',2)
+            ->where('status',0)
+            ->lock(true)
+            //->field('id,price,user_id')
+            ->select();
+        foreach ($list as $key => $val){
+            $val->status = 1;
+            $val->fulfil_time = time();
+            $res = $val->save();
+            dump($val->id);
+        }
+
+
+
+
         //TP6各个文件定义解析：
         //controller 处理入参（表单验证，参数过滤，参数包装）
         //service 注入到controller 处理业务。采用一个service处理一个业务，复杂业务或者核心业务采用一个方法对应一个小步骤的写法，高度解耦程序
@@ -64,6 +73,20 @@ class Test extends BaseController
 
     }
 
+    function getFloatValue($f,$len = 2)
+    {
+        $tmpInt=intval($f);
+        $tmpDecimal=$f-$tmpInt;
+        $str="$tmpDecimal";
+        $subStr=strstr($str,'.');
+        if(strlen($subStr)<$len+1)
+        {
+            $repeatCount=$len+1-strlen($subStr);
+            $str=$str."".str_repeat("0",$repeatCount);
+        }
+        return    $tmpInt."".substr($str,1,1+$len);
+    }
+
     public function repeat(UsersService $usersService){
         $pid = 1;
         $num = 0;
@@ -87,6 +110,22 @@ class Test extends BaseController
             $pid++;
         }
         return $num;
+    }
+
+    public function token(){
+        $email = '773901011@qq.com';
+        $user = Users::where('email',$email)->find();
+        request()->userId = $user->id;
+        $token = strtoupper(hash('md5',$user->email.time()));
+        cache($token,$user);
+        cache($token.'stamp',time()+STILL_TIME);
+        return $token;
+    }
+
+    public function task(){
+        //常驻任务
+        //定时去读取任务表
+        //逐一执行 待执行 的任务
     }
 
 }

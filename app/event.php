@@ -12,7 +12,8 @@ return [
     ],
 
     'listen'    => [
-        'swoole.task' => [ app\listener\Task::class]
+        'swoole.task' => [ app\listener\Task::class],
+        'testListen'=>['app\listener\Test']
     ],
 
     'subscribe' => [

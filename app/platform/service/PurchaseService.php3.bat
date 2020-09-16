@@ -204,30 +204,29 @@ class PurchaseService extends Service
         $contract = Contract::where('id',$contract_id)
             ->field('user_id,price,interest')
             ->find();
-        //是否状态已经发放
-        $tran = Transaction::where('user_id',$contract['user_id'])
+        //发放收益和本金
+        $balance = $contract['price'] + $contract['interest'];
+        $res = Capital::where('user_id',$contract['user_id'])
+            ->update([
+                'balance'=>Db::raw("balance+$balance")
+            ]);
+        if(!$res){
+            trace('用户ID='.$contract['user_id'].',本金和收益发放失败！','error');
+            return false;
+        }
+        //修改收益发放记录
+        $res = Transaction::where('user_id',$contract['user_id'])
             ->where('contract_id',$contract_id)
+            ->where('status',0)
             ->where('type',1)
-            ->lock(true)
-            ->find();
-        if($tran['status'] == 0){
-            //发放收益和本金
-            $balance = $contract['price'] + $contract['interest'];
-            $res = Capital::where('user_id',$contract['user_id'])
-                ->update([
-                    'balance'=>Db::raw("balance+$balance")
-                ]);
-            if(!$res){
-                trace('用户ID='.$contract['user_id'].',本金和收益发放失败！','error');
-                return false;
-            }
-            $tran->status = 1;
-            $tran->fulfil_time = time();
-            $res = $tran->save();
-            if(!$res){
-                trace('用户ID='.$contract['user_id'].',收益发放记录修改失败！','error');
-                return false;
-            }
+            ->where('fulfil_time')
+            ->update([
+                'status'        => 1,
+                'fulfil_time'   => time()
+            ]);
+        if(!$res){
+            trace('用户ID='.$contract['user_id'].',收益发放记录修改失败！','error');
+            return false;
         }
         return true;
     }
@@ -235,35 +234,40 @@ class PurchaseService extends Service
     //计划任务 发放动态收益
     public function grantDynamic($contract_id){
     //查询需要发放的动态收益数据
-        $list = Transaction::where('contract_id',$contract_id)
+        $arr = Transaction::where('id',$contract_id)
             ->where('type',2)
             ->where('status',0)
-            ->lock(true)
+            ->where('fulfil_time')
+            //->field('id,price,user_id')
             ->select();
-        foreach ($list as $key => $val){
-            //是否状态已经修改
-            $status = Transaction::where('id',$val['id'])
-                ->lock(true)
-                ->value('status');
-            if($status == 0){
-                //发放收益
-                $price = $val['price'];
-                $res = Capital::where('user_id',$val['user_id'])
-                    ->update([
-                        'balance'=>Db::raw("balance+$price")
-                    ]);
-                if(!$res){
-                    trace("用户ID=".$val['user_id'].",动态收益发放失败！",'error');
-                    return false;
-                }
-                //修改收益发放记录
-                $val->status = 1;
-                $val->fulfil_time = time();
-                $res = $val->save();
-                if(!$res){
-                    trace("用户ID=".$val['user_id'].",动态收益发放记录修改失败！",'error');
-                    return false;
-                }
+        foreach ($arr as $key => $val){
+            //发放收益
+            $price = $val['price'];
+            $res = Capital::where('user_id',$val['user_id'])
+                ->update([
+                    'balance'=>Db::raw("balance+$price")
+                ]);
+            if(!$res){
+                trace("用户ID=".$val['user_id'].",动态收益发放失败！",'error');
+                return false;
+            }
+            //修改收益发放记录
+            $val->status = 2;
+            $val->fulfil_time = time();
+            $res = $val->save();
+            dump($val->id);
+           /* $res = Transaction::where('user_id',$val['user_id'])
+                ->where('contract_id',$contract_id)
+                ->where('status',0)
+                ->where('type',2)
+                ->where('fulfil_time','')
+                ->update([
+                    'status'        => 1,
+                    'fulfil_time'   => time()
+                ]);*/
+            if(!$res){
+                trace("用户ID=".$val['user_id'].",动态收益发放记录修改失败！",'error');
+                return false;
             }
         }
         return true;

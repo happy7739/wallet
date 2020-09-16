@@ -9,6 +9,7 @@ use think\facade\Route;
 use \app\middleware\Power;
 use \app\middleware\VisitLimit;
 use \app\middleware\CheckAdminToken;
+use \app\middleware\CheckUserToken;
 use \app\middleware\Sign;
 use \think\middleware\LoadLangPack;
 
@@ -19,6 +20,7 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
     //无需验证权限
     Route::group('common/',function (){
         Route::get('/test','test/index');
+        Route::get('/getToken','test/token');
         Route::get('/repeat','test/repeat');
 
         //获取图形验证码
@@ -78,11 +80,16 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         //团队收益数据列表
         Route::get('/teamLists','Team/lists');
 
+
+
+    })->middleware(VisitLimit::class);
+
+    Route::group(function (){
         //购买合约
         Route::post('/purchase','Purchase/index');
 
-    })->middleware(VisitLimit::class);
-    //
+    })->middleware([CheckUserToken::class,VisitLimit::class]);
+
     Route::group(function (){
         Route::get('/adminLists','Admins/lists');//管理员列表
         Route::get('/rolesLists','Roles/lists');//角色列表
@@ -117,6 +124,7 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         Route::get('/teamLists','Team/lists');//团队收益数据列表
 
     })->middleware([CheckAdminToken::class,Power::class,Sign::class,VisitLimit::class]);
+
     Route::miss(function() {
         return '4042 Not Found!';
     });

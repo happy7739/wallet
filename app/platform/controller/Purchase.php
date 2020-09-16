@@ -12,45 +12,44 @@ use think\exception\ValidateException;
 
 class Purchase extends BaseController
 {
-    //购买合约  传入用户ID、合约ID
+    //购买合约  传入合约ID  获取用户ID
     public function index(Validate $validateService,PurchaseService $purchaseService){
+        $user_id = request()->userId;
         //判断用户是否是第一次购买 ？ 直接购买（计算结算收益）：发放上一次购买收益、计算本次结算收益
         //判断用户余额是否充足
         //判断上一次合约是否结束
         try{
             startTrans();
-            $validate = $validateService->exist($this->param['user_id'],'users','id',false);
-            if($validate === true){
-                return result('账号不存在');
-            }
             $validate = $validateService->exist($this->param['profit_id'],'profit','id',false);
             if($validate === true){
+                rollback();
                 return result('合约不存在');
             }
-            //判断用户是否是第一次购买
-            $count = Contract::where('user_id',$this->param['user_id'])->count();
-            //用户再次购买合约时，先发放收益和本金
-            if($count !== 0){
-                //获取上次合约id
-
+            $res = $purchaseService->expire($user_id);
+            if($res == false){
+                rollback();
+                return result('合约未结束，请稍后再试。');
+            }
+            $res = $purchaseService->judge_balance($user_id,$this->param['profit_id']);
+            if($res == false){
+                rollback();
+                return result('余额不足，请充值！');
             }
             //购买合约
-            $res = $purchaseService->buy($this->param['user_id'],$this->param['profit_id'],$count);
+            $res = $purchaseService->buy($user_id,$this->param['profit_id']);
             if($res){
                 commit();
-                return result('购买合约成功',StatusCode::$SUCCESS);
-            } else {
+                return result('购买合约成功。',StatusCode::$SUCCESS);
+            }else{
                 rollback();
-                return result($res);
+                return result('购买失败!');
             }
-
-
         }catch (ValidateException $validate){
             rollback();
             return result($validate->getMessage());
         }catch (\Throwable $t){
             rollback();
-            trace('流程异常：'.$t->getMessage().' - '.$t->getLine(),'error');
+            trace('购买合约流程异常：'.$t->getMessage().' - '.$t->getLine(),'error');
             return result('购买失败');
         }
     }
