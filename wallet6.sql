@@ -11,7 +11,7 @@
  Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 14/09/2020 18:16:09
+ Date: 17/09/2020 11:40:14
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `admin_logs`  (
   `create_time` int(11) NOT NULL,
   `admin_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 91 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员操作日志' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 105 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员操作日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_logs
@@ -104,6 +104,11 @@ INSERT INTO `admin_logs` VALUES (98, '编辑收益设置表', '{\"id\":2,\"price
 INSERT INTO `admin_logs` VALUES (99, '编辑收益设置表', '{\"id\":3,\"price\":\"1000.00\",\"cycle\":12,\"profit\":\"7.60\",\"create_time\":1599981960,\"del_time\":null,\"edit_time\":null,\"status\":0}', '{\"price\":\"1000.00\",\"cycle\":\"1\",\"profit\":\"7.60\"}', 1600068908, 1);
 INSERT INTO `admin_logs` VALUES (100, '编辑收益设置表', '{\"id\":4,\"price\":\"5000.00\",\"cycle\":12,\"profit\":\"9.60\",\"create_time\":1599981973,\"del_time\":null,\"edit_time\":null,\"status\":0}', '{\"price\":\"5000.00\",\"cycle\":\"1\",\"profit\":\"9.60\"}', 1600068913, 1);
 INSERT INTO `admin_logs` VALUES (101, '编辑收益设置表', '{\"id\":5,\"price\":\"10000.00\",\"cycle\":12,\"profit\":\"11.60\",\"create_time\":1599981983,\"del_time\":null,\"edit_time\":null,\"status\":0}', '{\"price\":\"10000.00\",\"cycle\":\"1\",\"profit\":\"11.60\"}', 1600068918, 1);
+INSERT INTO `admin_logs` VALUES (102, '登录系统', '[]', '[]', 1600132110, 1);
+INSERT INTO `admin_logs` VALUES (103, '登录系统', '[]', '[]', 1600134782, 1);
+INSERT INTO `admin_logs` VALUES (104, '登录系统', '[]', '[]', 1600221547, 1);
+INSERT INTO `admin_logs` VALUES (105, '删除合约记录表', '{\"id\":1,\"user_id\":11,\"price\":\"1000.00\",\"cycle\":1,\"profit\":\"7.60\",\"interest\":\"76.00\",\"create_time\":1600128000,\"end_time\":1600307127,\"del_time\":1600311782}', '[]', 1600311782, 1);
+INSERT INTO `admin_logs` VALUES (106, '删除收益发放记录表', '{\"id\":12,\"type\":2,\"status\":0,\"price\":\"7.60\",\"contract_id\":2,\"user_id\":2,\"create_time\":1600307127,\"fulfil_time\":null,\"del_time\":1600313637,\"update_time\":1600313637}', '[]', 1600313637, 1);
 
 -- ----------------------------
 -- Table structure for admins
@@ -139,7 +144,7 @@ CREATE TABLE `capital`  (
   `balance` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '余额',
   `fund` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '个人业绩',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of capital
@@ -154,7 +159,18 @@ INSERT INTO `capital` VALUES (7, 0.00, 0.00);
 INSERT INTO `capital` VALUES (8, 0.00, 0.00);
 INSERT INTO `capital` VALUES (9, 0.00, 0.00);
 INSERT INTO `capital` VALUES (10, 0.00, 0.00);
-INSERT INTO `capital` VALUES (11, 0.00, 1000.00);
+INSERT INTO `capital` VALUES (11, 1000.00, 0.00);
+INSERT INTO `capital` VALUES (12, 0.00, 0.00);
+INSERT INTO `capital` VALUES (13, 0.00, 0.00);
+INSERT INTO `capital` VALUES (14, 0.00, 0.00);
+INSERT INTO `capital` VALUES (15, 0.00, 0.00);
+INSERT INTO `capital` VALUES (16, 0.00, 0.00);
+INSERT INTO `capital` VALUES (17, 0.00, 0.00);
+INSERT INTO `capital` VALUES (18, 0.00, 0.00);
+INSERT INTO `capital` VALUES (19, 0.00, 0.00);
+INSERT INTO `capital` VALUES (20, 0.00, 0.00);
+INSERT INTO `capital` VALUES (21, 0.00, 0.00);
+INSERT INTO `capital` VALUES (22, 0.00, 0.00);
 
 -- ----------------------------
 -- Table structure for config
@@ -180,16 +196,12 @@ CREATE TABLE `contract`  (
   `price` decimal(10, 2) NOT NULL COMMENT '投资金额',
   `cycle` int(11) NOT NULL COMMENT '合约周期天数',
   `profit` decimal(4, 2) NOT NULL COMMENT '收益率',
+  `interest` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '收益',
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   `end_time` int(11) NULL DEFAULT NULL COMMENT '结束时间',
-  `frequency` int(11) NOT NULL COMMENT '期数',
+  `del_time` int(11) NULL DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '合约记录表' ROW_FORMAT = Fixed;
-
--- ----------------------------
--- Records of contract
--- ----------------------------
-INSERT INTO `contract` VALUES (1, 11, 1000.00, 1, 7.60, 1600077496, NULL, 1);
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '合约记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for dynamic
@@ -204,7 +216,7 @@ CREATE TABLE `dynamic`  (
   `del_time` int(11) NULL DEFAULT NULL COMMENT '删除时间',
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '动态收益设置表' ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '动态收益设置表' ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of dynamic
@@ -215,8 +227,8 @@ INSERT INTO `dynamic` VALUES (3, 5, 3, 10.00, 1599990722, NULL, 0);
 INSERT INTO `dynamic` VALUES (4, 7, 4, 10.00, 1599990739, NULL, 0);
 INSERT INTO `dynamic` VALUES (5, 9, 5, 10.00, 1599990746, NULL, 0);
 INSERT INTO `dynamic` VALUES (6, 11, 6, 5.00, 1599990764, NULL, 0);
-INSERT INTO `dynamic` VALUES (7, 999, 6, 99.00, 1599990832, 1600052567, 0);
-INSERT INTO `dynamic` VALUES (8, 66, 6, 12.00, 1600052642, 1600052647, 0);
+INSERT INTO `dynamic` VALUES (7, 999, 6, 99.00, 1599990832, 1, 0);
+INSERT INTO `dynamic` VALUES (8, 66, 6, 12.00, 1600052642, 1, 0);
 
 -- ----------------------------
 -- Table structure for menu
@@ -244,9 +256,13 @@ INSERT INTO `menu` VALUES (4, '管理员管理', NULL, 2, 'admin/lists', 2, 0, 1
 INSERT INTO `menu` VALUES (5, '角色管理', NULL, 2, 'role/lists', 2, 1, 1);
 INSERT INTO `menu` VALUES (6, '操作日志', NULL, 2, 'log/admin', 2, 2, 1);
 INSERT INTO `menu` VALUES (7, '收益设置', NULL, 1, NULL, 0, 0, 1);
-INSERT INTO `menu` VALUES (8, '静态收益', NULL, 2, 'profit/lists', 7, 0, 1);
+INSERT INTO `menu` VALUES (8, '合约配置', NULL, 2, 'profit/lists', 7, 0, 1);
 INSERT INTO `menu` VALUES (11, '动态收益', NULL, 2, 'dynamic/lists', 7, 1, 1);
 INSERT INTO `menu` VALUES (12, '团队收益', NULL, 2, 'team/lists', 7, 2, 1);
+INSERT INTO `menu` VALUES (13, '合约记录', NULL, 1, '', 0, 0, 1);
+INSERT INTO `menu` VALUES (14, '合约记录', NULL, 2, 'contract/lists', 13, 0, 1);
+INSERT INTO `menu` VALUES (15, '收益发放记录', NULL, 1, NULL, 0, 0, 1);
+INSERT INTO `menu` VALUES (16, '收益发放记录', NULL, 1, 'transaction/lists', 15, 0, 1);
 
 -- ----------------------------
 -- Table structure for powers
@@ -277,11 +293,11 @@ INSERT INTO `powers` VALUES (7, '编辑角色', 'Roles', 'modify', 'post', 5, 1,
 INSERT INTO `powers` VALUES (8, '删除角色', 'Roles', 'del', 'post', 5, 1, '0503');
 INSERT INTO `powers` VALUES (9, '角色授权', 'Roles', 'authorization', 'post', 5, 1, '0504');
 INSERT INTO `powers` VALUES (10, '查看操作日志', 'Logs', 'admins', 'get', 6, 1, '0600');
-INSERT INTO `powers` VALUES (61, '静态收益', 'Profit', 'lists', 'get', 8, 1, '0800');
-INSERT INTO `powers` VALUES (62, '静态收益状态', 'Profit', 'status', 'post', 8, 1, '0801');
-INSERT INTO `powers` VALUES (64, '编辑静态收益', 'Profit', 'modify', 'post', 8, 1, '0803');
-INSERT INTO `powers` VALUES (65, '添加静态收益', 'Profit', 'add', 'post', 8, 1, '0804');
-INSERT INTO `powers` VALUES (66, '删除静态收益', 'Profit', 'del', 'post', 8, 1, '0805');
+INSERT INTO `powers` VALUES (61, '合约配置', 'Profit', 'lists', 'get', 8, 1, '0800');
+INSERT INTO `powers` VALUES (62, '合约配置状态', 'Profit', 'status', 'post', 8, 1, '0801');
+INSERT INTO `powers` VALUES (64, '编辑合约配置', 'Profit', 'modify', 'post', 8, 1, '0803');
+INSERT INTO `powers` VALUES (65, '添加合约配置', 'Profit', 'add', 'post', 8, 1, '0804');
+INSERT INTO `powers` VALUES (66, '删除合约配置', 'Profit', 'del', 'post', 8, 1, '0805');
 INSERT INTO `powers` VALUES (67, '动态收益', 'Dynamic', 'lists', 'get', 11, 1, '1101');
 INSERT INTO `powers` VALUES (68, '动态收益状态', 'Dynamic', 'status', 'post', 11, 1, '1102');
 INSERT INTO `powers` VALUES (69, '编辑动态收益', 'Dynamic', 'modify', 'post', 11, 1, '1103');
@@ -292,6 +308,10 @@ INSERT INTO `powers` VALUES (73, '团队收益状态', 'Team', 'status', 'post',
 INSERT INTO `powers` VALUES (74, '编辑团队收益', 'Team', 'modify', 'post', 12, 1, '1203');
 INSERT INTO `powers` VALUES (75, '添加团队收益', 'Team', 'add', 'post', 12, 1, '1204');
 INSERT INTO `powers` VALUES (76, '删除团队收益', 'Team', 'del', 'post', 12, 1, '1205');
+INSERT INTO `powers` VALUES (77, '合约记录', 'Contract', 'lists', 'get', 14, 1, '1401');
+INSERT INTO `powers` VALUES (78, '删除合约记录', 'Contract', 'del', 'post', 14, 1, '1402');
+INSERT INTO `powers` VALUES (79, '收益发放记录', 'Transaction', 'lists', 'get', 16, 1, '1601');
+INSERT INTO `powers` VALUES (80, '删除收益发放记录', 'Transaction', 'del', 'post', 16, 1, '1602');
 
 -- ----------------------------
 -- Table structure for profit
@@ -307,7 +327,7 @@ CREATE TABLE `profit`  (
   `edit_time` int(11) NULL DEFAULT NULL COMMENT '编辑时间',
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收益设置表' ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收益设置表' ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of profit
@@ -331,7 +351,7 @@ CREATE TABLE `relationship`  (
   `sp_id` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '关系格式：,A_id,B_id,C_id,(上级所有ID)',
   `stratum` int(11) NOT NULL COMMENT '层级',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '会员关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '会员关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of relationship
@@ -347,6 +367,17 @@ INSERT INTO `relationship` VALUES (8, 8, 7, ',1,2,3,4,5,6,7,', 7);
 INSERT INTO `relationship` VALUES (9, 9, 8, ',1,2,3,4,5,6,7,8,', 8);
 INSERT INTO `relationship` VALUES (10, 10, 9, ',1,2,3,4,5,6,7,8,9,', 9);
 INSERT INTO `relationship` VALUES (11, 11, 10, ',1,2,3,4,5,6,7,8,9,10,', 10);
+INSERT INTO `relationship` VALUES (12, 12, 8, ',1,2,3,4,5,6,7,8,', 8);
+INSERT INTO `relationship` VALUES (13, 13, 6, ',1,2,3,4,5,6,', 6);
+INSERT INTO `relationship` VALUES (14, 14, 6, ',1,2,3,4,5,6,', 6);
+INSERT INTO `relationship` VALUES (15, 15, 4, ',1,2,3,4,', 4);
+INSERT INTO `relationship` VALUES (16, 16, 4, ',1,2,3,4,', 4);
+INSERT INTO `relationship` VALUES (17, 17, 4, ',1,2,3,4,', 4);
+INSERT INTO `relationship` VALUES (18, 18, 2, ',1,2,', 2);
+INSERT INTO `relationship` VALUES (19, 19, 2, ',1,2,', 2);
+INSERT INTO `relationship` VALUES (20, 20, 2, ',1,2,', 2);
+INSERT INTO `relationship` VALUES (21, 21, 2, ',1,2,', 2);
+INSERT INTO `relationship` VALUES (22, 22, 2, ',1,2,', 2);
 
 -- ----------------------------
 -- Table structure for roles
@@ -405,6 +436,27 @@ INSERT INTO `roles_power` VALUES (89, 4, 9);
 INSERT INTO `roles_power` VALUES (90, 4, 10);
 
 -- ----------------------------
+-- Table structure for task
+-- ----------------------------
+DROP TABLE IF EXISTS `task`;
+CREATE TABLE `task`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0:未执行',
+  `type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1:计算收益2:发放收益',
+  `contract_id` int(11) NOT NULL COMMENT '合约ID',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  `end_time` int(11) NULL DEFAULT NULL COMMENT '完成时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of task
+-- ----------------------------
+INSERT INTO `task` VALUES (1, 1, 1, 1, 1600307060, 1600307087);
+INSERT INTO `task` VALUES (2, 1, 2, 1, 1600307124, 1600307127);
+INSERT INTO `task` VALUES (3, 1, 1, 2, 1600307124, 1600307127);
+
+-- ----------------------------
 -- Table structure for team
 -- ----------------------------
 DROP TABLE IF EXISTS `team`;
@@ -440,12 +492,13 @@ CREATE TABLE `transaction`  (
   `type` tinyint(2) NOT NULL COMMENT '1静态收益,2动态收益,3团队收益',
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0未发放,1已发放',
   `price` decimal(10, 2) NOT NULL COMMENT '发放金额',
-  `create_time` int(11) NOT NULL COMMENT '创建时间',
-  `fulfil_time` int(11) NULL DEFAULT NULL COMMENT '发放时间',
   `contract_id` int(11) NOT NULL COMMENT '合约id',
   `user_id` int(11) NOT NULL COMMENT '结算给谁',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  `fulfil_time` int(11) NULL DEFAULT NULL COMMENT '发放时间',
+  `del_time` int(11) NULL DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收益发放记录表' ROW_FORMAT = Fixed;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收益发放记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for users
@@ -462,7 +515,7 @@ CREATE TABLE `users`  (
   `transaction` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '交易密码',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `登录账号`(`email`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
@@ -478,5 +531,16 @@ INSERT INTO `users` VALUES (8, '773900708@qq.com', 'X/YVjeeMLI6f5XFPAOc3tcteEQAN
 INSERT INTO `users` VALUES (9, '773900809@qq.com', 'NdvdgPqfIa/8t4ID4HJF2cid7WqqkDgFyJ5lX1LjjJyoa48LduLzL8BhSu0EKNfSz6fUdmKd9BYS+ATNEQMwJO4cncjHHI3Dl7fszLrkRKZCVxYC2Wrcf6aEtI2PSucNC2mu1kGaXbdTyZi77uDihpMcki2pVoJprOe7XnSJzUg=', 8, 1600067555, NULL, 0, NULL);
 INSERT INTO `users` VALUES (10, '773900910@qq.com', 'wime+c+ik/dsAZUyhwvIQgTEa4agtiKdiAGgkkFKxFIPvt0gJmcSFDtFAskPxewSDiD3ettIOxU6QwNYObpwWKgCkZcFWZFKcXbKPakCAY+/Ug2ieh5dhhR9revvLuMbucoqeaJBJ+ViGd5DRmpaiyVM8yACwRDdFUV5JGG81Iw=', 9, 1600067555, NULL, 0, NULL);
 INSERT INTO `users` VALUES (11, '773901011@qq.com', 'l0cYiZs0KYIhd8/1NykF+5ADlSTzM1M+rZhpS3PonGFkqT35q0HFuYHFaAdJ1E8AjqdaRdDXMHZe3rgnc1zoliCBsLf4pPL9CWLk0P/HySv0G03x+2zm+KvTGx0Q1Wu8nPYkJ6hHnJsDTqIW7FWy89Q/q4OOq0xagBjyOA+x7zs=', 10, 1600067555, NULL, 0, NULL);
+INSERT INTO `users` VALUES (12, '773900812@qq.com', 'OX/ckbvYwCavaQPhxUF8b4HwgYo3lCsZMSTBY+yj6T9jxpXDJaXOpy4uN3P9QlakzUSHHkrJ5cLN4sE5zSI8GsNxgrEoFu6vcNAZxaKZMLGPoysgjFCiPquH8nhujMYYpESi/L9wFM4wa1FUN6I1qsusR9eTnCHQA3HOOpX+W5g=', 8, 1600135435, NULL, 0, NULL);
+INSERT INTO `users` VALUES (13, '773900613@qq.com', 't6urRDRur+zJp9sNuRLEiXRl4qFPIipFSaY8aEPBd/uv5OrTscZwno6DgvyHx4s+8/SxmZ22F/h+/lQUBMxT9PqzUgwKmH5TkSAr7nULK0lgGpFvfYzuvODpWF8ceMYy9cq052YqY+SR4eoYrkeEwV2pw35X9TLBtfklMd+qB2k=', 6, 1600135459, NULL, 0, NULL);
+INSERT INTO `users` VALUES (14, '773900614@qq.com', 'f/09h1RXTAaLvqZjhVDV4a57UGZZBNawoHH/uJIVOx4Cxclu5Uh8h8oZzxtV8Y/D5xB8lTL+iPoZ3RMHSZRhLe+xoFPwij8imzfDCRHSVtbG2r8cjePTxocuL4H5PsKuhI8gCbt0zkj+PuzJ7dI6PUyUm3BJZ12iRbKQol5eYw0=', 6, 1600135466, NULL, 0, NULL);
+INSERT INTO `users` VALUES (15, '773900415@qq.com', 'iI04DlLXlPJRjiHHBU3f3rLaxyV8eKo1v4W+ju0H17bKkBJKSL+C7DsJjm+nMd7uwPO9dDQJlu6uxGlljlCQXl4bYhmBP71v63gbBNR84689JLmPGzcUd93HiWDd0XMNijccxaT9jFBryUTxlKilXcHvV9gA3Wfg0NfTAUjlmeg=', 4, 1600135490, NULL, 0, NULL);
+INSERT INTO `users` VALUES (16, '773900416@qq.com', 'h2nKztMBArOymkVrN5wK9pBoO1rFXdkzzoVJynw6Ov5JX5TJbnukHm8Z9wpywVATnfK67v6mHnT1wYvOgUcUHQ6ZUiEzJW0lahmLNdayinnF/HLLuJhO5mKG/KbZZ058Uu3W3AGVHSocJ/hqOuItKzIOvIG3YXyaXz2mPjPddfs=', 4, 1600135505, NULL, 0, NULL);
+INSERT INTO `users` VALUES (17, '773900417@qq.com', 'ElucBC80/tkYAda73Ru8RHcFnEB9jNvg8NOwZIxwE9AmW6hKy+K+DsU15wJD+10wkkMBKdTgWtJBeQ5oERyXL1aa16NCtGlQXJ6MPSCNcYwv16nmSgq+Czv6SN7+Nd/uJjM4ld0mpsEPBTEg+2v834+XrzWqWn6fe99BLnkObNw=', 4, 1600135513, NULL, 0, NULL);
+INSERT INTO `users` VALUES (18, '773900218@qq.com', 'JLpAewjzlxDy7BteHgziA6/mqlxwjf1Q40JTTRW659DuwQPE0jDQLL+62M72PG6SEUnp2dIOy/RcpHhVjfd6w4P0y0m/9S8jZGi0fKsjiwX0mssZaKHbFSp0iuPGkR+hJB0nO/ZC3c/Ss2bSaBDQ8VfDXAtuZZ5n4r/Z6iWjIak=', 2, 1600135537, NULL, 0, NULL);
+INSERT INTO `users` VALUES (19, '773900219@qq.com', 'kKOjQNJI+JBk2hcYHheKDNA0s9pJN6J+az94vP0oF+2/xCMUXHDtXkP94iH9xkT51ZUyYizvEdc6BYlUQyP70R6OQtIE+RUgu1BT+6apIGaK3lGt9/SyOom++E6glhKZNmK4nVd89j5BQxdNUC3GfRRCqkMByYzIQ0eN7E4AmRw=', 2, 1600135546, NULL, 0, NULL);
+INSERT INTO `users` VALUES (20, '773900220@qq.com', 'GeFMefLC59TBN6ritMmuyeG5ah6Q3F2KDJWjtn3VQoENnpE4U0mG/6eXYheo7ryxB2Og+nAQFPWRPKlCepLvwLt2iaY2M7s5FToydF2kuQr+goYP/p1RyjE6Xw0kUEkPWyxxM2dcf7Pu+mJeci245Lp9NGcWrxCEvLU3HuN642c=', 2, 1600135554, NULL, 0, NULL);
+INSERT INTO `users` VALUES (21, '773900221@qq.com', 'QV0M9tRjS8iBRS/+RPM9XzjpifJx03NitrvC6Tw1F37QzPUqicWGG7LwjM/LHsOkmcvg68Ybpd1HtzD4mXtUYPy9FS6QlTDOKyLda7x4+adZ4PVdNpQa48ReeVjpCz6ypizk2NHnc7hr2IuXws0GPqCi2AboK6ybwyf+HJdscC0=', 2, 1600135562, NULL, 0, NULL);
+INSERT INTO `users` VALUES (22, '773900222@qq.com', 'qVhY0YPuZl5869vsBT+yrjj24eMgMDulenULrUfonOWhmWWBsxKkF2U6u061Zj1/CGHwE/Ra804kHgtCOoR693K1ie/g/q+U+y9qnX0mD5+/7E31JsnATYm5DZ6dP/g/RjonjxWjBK2Ox7aNmb64sDTBqmgiGGRIHlPX3YB1ifg=', 2, 1600135567, NULL, 0, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

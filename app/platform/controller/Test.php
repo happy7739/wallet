@@ -28,9 +28,9 @@ use think\facade\Db;
 class Test extends BaseController
 {
 
-    public function index(Validate $validate){
+    public function index(Validate $validate,UsersService $usersService){
         $param = $this->request->param();
-
+        return $id = $usersService->emailID('773901011@qq.com');
 
         //TP6各个文件定义解析：
         //controller 处理入参（表单验证，参数过滤，参数包装）

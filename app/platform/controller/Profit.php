@@ -11,7 +11,7 @@ use think\exception\ValidateException;
 
 class Profit extends BaseController
 {
-    /**静态收益数据列表
+    /**合约数据列表
      * @param ProfitService $profitService
      * @return \think\response\Json
      */

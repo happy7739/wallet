@@ -110,7 +110,6 @@ class Admins extends BaseController
      * Date: 2020/8/24 13:34
      */
     public function del(AdminService $adminService){
-
         try{
             startTrans();
             $res = $adminService->delAdmin(intval($this->param['id']));

@@ -126,4 +126,13 @@ class UsersService extends Service
         cache($token.'stamp',time()+STILL_TIME);
         return $token;
     }
+
+    /**邮箱转ID
+     * @param string $email
+     * @return mixed
+     */
+    public function emailID(string $email){
+        $id = Users::where('email',$email)->value('id');
+        return $id;
+    }
 }

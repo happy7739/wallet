@@ -43,7 +43,7 @@ class PurchaseService extends Service
      * @param int $profit_id //合约ID
      * @return bool
      */
-    public function judge_balance(int $user_id,int $profit_id){
+    public function judgeBalance(int $user_id,int $profit_id){
         $nowbalance = Capital::where('user_id',$user_id)->value('balance');
         $price = Profit::where('id',$profit_id)->value('price');
         if($nowbalance < $price){
@@ -73,7 +73,7 @@ class PurchaseService extends Service
                 'fund'      => Db::raw("fund+$price")
             ]);
         if(!$res){
-            trace($str.'扣除余额失败！','error');
+            trace($str.'购买合约扣除余额失败！','error');
             return false;
         }
         //获取上次合约信息ID
@@ -119,7 +119,13 @@ class PurchaseService extends Service
         return true;
     }
 
-    /**计划任务 创建 购买者静态收益*/
+    /**计划任务 创建 购买者静态收益
+     * @param int $contract_id 合约ID
+     * @return bool
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
     public function interest(int $contract_id){
         //获取合约信息
         $contract = Contract::where('id',$contract_id)
@@ -132,7 +138,7 @@ class PurchaseService extends Service
             'contract_id'   => $contract_id,
             'user_id'       => $contract['user_id']
         );
-        $res = Transaction::create($data)->lock(true);
+        $res = Transaction::create($data);
         if(!$res){
             trace('用户ID='.$contract['user_id'].',静态收益创建失败！','error');
             return false;
@@ -140,8 +146,15 @@ class PurchaseService extends Service
         return true;
     }
 
-    //计划任务 计算动态收益
-    public function dynamic($contract_id){
+
+    /**计划任务 计算动态收益
+     * @param int $contract_id 合约ID
+     * @return bool
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
+    public function dynamic(int $contract_id){
         //查询合约信息
         $contract = Contract::where('id',$contract_id)
             ->field('user_id,interest')
@@ -153,7 +166,6 @@ class PurchaseService extends Service
             ->where('p_id','<>',0)
             ->field('sp_id,stratum')
             ->find();
-        //$str = ",1,2,3,4,5,6,7,8,9,10,";
         if($ship){//有上级
             //动态收益查询一个数组出来，避免多次查询数据库
             $dynamic = Dynamic::where('edition','<=',$ship['stratum'])
@@ -164,7 +176,7 @@ class PurchaseService extends Service
                 //字符串变数组 倒序
                 $str = trim($ship['sp_id'],',');
                 $arr = explode(",",$str);
-                $arr = array_reverse($arr); //[10,9,9,7,6,5,4,3,2,1]
+                $arr = array_reverse($arr);
                 foreach ($dynamic as $key => $val){
                     //直推人数是否满足  $val['edition']代数 $val['branch']直推人数
                     $now_user_id = $arr[$val['edition']-1];
@@ -232,8 +244,14 @@ class PurchaseService extends Service
         return true;
     }
 
-    //计划任务 发放动态收益
-    public function grantDynamic($contract_id){
+    /**计划任务 发放动态收益
+     * @param int $contract_id 合约ID
+     * @return bool
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
+    public function grantDynamic(int $contract_id){
     //查询需要发放的动态收益数据
         $list = Transaction::where('contract_id',$contract_id)
             ->where('type',2)

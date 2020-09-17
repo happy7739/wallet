@@ -53,13 +53,13 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         //删除用户
         Route::post('/usersDel','Users/del');
 
-        //新增静态收益数据设置
+        //新增合约配置数据设置
         Route::post('/addProfit','Profit/add');
-        //删除静态收益数据设置
+        //删除合约配置数据设置
         Route::post('/delProfit','Profit/del');
-        //修改静态收益数据设置
+        //修改合约配置数据设置
         Route::post('/modifyProfit','Profit/modify');
-        //静态收益数据列表
+        //合约配置数据列表
         Route::get('/listsProfit','Profit/lists');
 
         //新增动态收益数据设置
@@ -80,7 +80,8 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         //团队收益数据列表
         Route::get('/teamLists','Team/lists');
 
-
+        //合约记录列表
+        Route::get('/contractLists','Contract/lists');
 
     })->middleware(VisitLimit::class);
 
@@ -108,10 +109,10 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         Route::post('/delOrder','TradeOrder/cancel');//撤销委托
 
 
-        Route::post('/profitAdd','Profit/add');//新增静态收益数据设置
-        Route::post('/profitDel','Profit/del');//删除静态收益数据设置
-        Route::post('/profitModify','Profit/modify');//修改静态收益数据设置
-        Route::get('/profitLists','Profit/lists');//静态收益数据列表
+        Route::post('/profitAdd','Profit/add');//新增合约配置数据设置
+        Route::post('/profitDel','Profit/del');//删除合约配置数据设置
+        Route::post('/profitModify','Profit/modify');//修改合约配置数据设置
+        Route::get('/profitLists','Profit/lists');//合约配置数据列表
 
         Route::post('/dynamicAdd','Dynamic/add');//新增动态收益数据设置
         Route::post('/dynamicDel','Dynamic/del');//删除动态收益数据设置
@@ -122,6 +123,12 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         Route::post('/teamDel','Team/del');//删除团队收益数据设置
         Route::post('/teamModify','Team/modify');//修改团队收益数据设置
         Route::get('/teamLists','Team/lists');//团队收益数据列表
+
+        Route::get('/contractLists','Contract/lists');//合约记录列表
+        Route::post('/contractDel','Contract/del');//删除合约记录
+
+        Route::get('/transactionLists','Transaction/lists');//收益发放记录列表
+        Route::post('/transactionDel','Transaction/del');//删除收益发放记录
 
     })->middleware([CheckAdminToken::class,Power::class,Sign::class,VisitLimit::class]);
 

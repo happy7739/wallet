@@ -30,7 +30,7 @@ class Purchase extends BaseController
                 rollback();
                 return result('合约未结束，请稍后再试。');
             }
-            $res = $purchaseService->judge_balance($user_id,$this->param['profit_id']);
+            $res = $purchaseService->judgeBalance($user_id,$this->param['profit_id']);
             if($res == false){
                 rollback();
                 return result('余额不足，请充值！');
