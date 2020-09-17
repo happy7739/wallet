@@ -6,6 +6,7 @@ namespace app\platform\controller;
 
 use app\platform\service\ContractService;
 use app\common\controller\StatusCode;
+use app\platform\service\UsersService;
 
 class Contract extends BaseController
 {
@@ -13,11 +14,21 @@ class Contract extends BaseController
      * @param ContractService $contractService
      * @return \think\response\Json
      */
-    public function lists(ContractService $contractService){
+    public function lists(ContractService $contractService,UsersService $usersService){
         try{
             $where = [];
+            if(array_key_exists('email',$this->param) && $this->param['email']){
+                $id = $usersService->emailID($this->param['email']);
+                $where[] = ['user_id','=',$id];
+            }
             $lists = $contractService->lists($where);
-            return result('ok',$lists,StatusCode::$SUCCESS);
+            $total_price = $contractService->getSum('price');
+            $total_interest = $contractService->getSum('interest');
+            $totalRow = array(
+                'price' => $total_price,
+                'interest' => $total_interest
+            );
+            return totalRow('ok',$lists,StatusCode::$SUCCESS,$totalRow);
         }catch (\Throwable $throwable){
             return result($throwable->getMessage(),StatusCode::$FAIL);
         }

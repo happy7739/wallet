@@ -15,7 +15,15 @@ class ContractService extends Service
      * @throws \think\db\exception\DbException
      */
     public function lists($where){
-        return Contract::lists($where,[],['userContract'],'');
+        return Contract::lists($where,[],['userContract'],'user_id');
+    }
+
+    /**聚合求和
+     * @param string $field 统计求和的字段
+     * @return float|\think\db\BaseQuery
+     */
+    public function getSum($field){
+        return Contract::getSum($field);
     }
 
     /**删除

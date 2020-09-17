@@ -6,6 +6,7 @@ namespace app\platform\controller;
 
 use app\common\controller\StatusCode;
 use app\platform\service\TransactiontService;
+use app\platform\service\UsersService;
 
 class Transaction extends BaseController
 {
@@ -13,11 +14,21 @@ class Transaction extends BaseController
      * @param TransactiontService $transactiontService
      * @return \think\response\Json
      */
-    public function lists(TransactiontService $transactiontService){
+    public function lists(TransactiontService $transactiontService,UsersService $usersService){
         try{
             $where = [];
+            if(array_key_exists('email',$this->param) && $this->param['email']){
+                $id = $usersService->emailID($this->param['email']);
+                $where[] = ['user_id','=',$id];
+            }
+            array_key_exists('type',$this->param) && $this->param['type'] and $where[] = ['type','=',$this->param['type']];
+            array_key_exists('status',$this->param) && $this->param['status'] and $where[] = ['status','=',$this->param['status']];
             $lists = $transactiontService->lists($where);
-            return result('ok',$lists,StatusCode::$SUCCESS);
+            $total_price = $transactiontService->getSum('price');
+            $totalRow = array(
+                'price' => $total_price
+            );
+            return totalRow('ok',$lists,StatusCode::$SUCCESS,$totalRow);
         }catch (\Throwable $throwable){
             return result($throwable->getMessage(),StatusCode::$FAIL);
         }

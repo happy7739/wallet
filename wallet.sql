@@ -11,7 +11,7 @@
  Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 17/09/2020 11:40:14
+ Date: 17/09/2020 15:26:24
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `admin_logs`  (
   `create_time` int(11) NOT NULL,
   `admin_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 105 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员操作日志' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员操作日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_logs
@@ -109,6 +109,7 @@ INSERT INTO `admin_logs` VALUES (103, '登录系统', '[]', '[]', 1600134782, 1)
 INSERT INTO `admin_logs` VALUES (104, '登录系统', '[]', '[]', 1600221547, 1);
 INSERT INTO `admin_logs` VALUES (105, '删除合约记录表', '{\"id\":1,\"user_id\":11,\"price\":\"1000.00\",\"cycle\":1,\"profit\":\"7.60\",\"interest\":\"76.00\",\"create_time\":1600128000,\"end_time\":1600307127,\"del_time\":1600311782}', '[]', 1600311782, 1);
 INSERT INTO `admin_logs` VALUES (106, '删除收益发放记录表', '{\"id\":12,\"type\":2,\"status\":0,\"price\":\"7.60\",\"contract_id\":2,\"user_id\":2,\"create_time\":1600307127,\"fulfil_time\":null,\"del_time\":1600313637,\"update_time\":1600313637}', '[]', 1600313637, 1);
+INSERT INTO `admin_logs` VALUES (107, '登录系统', '[]', '[]', 1600320730, 1);
 
 -- ----------------------------
 -- Table structure for admins
@@ -244,7 +245,7 @@ CREATE TABLE `menu`  (
   `sort` int(11) NOT NULL DEFAULT 0,
   `is_show` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
@@ -278,7 +279,7 @@ CREATE TABLE `powers`  (
   `is_default` int(11) NULL DEFAULT 1 COMMENT '新增角色的默认权限',
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '权限码（菜单ID+操作码）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 77 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 81 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of powers
@@ -447,14 +448,7 @@ CREATE TABLE `task`  (
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   `end_time` int(11) NULL DEFAULT NULL COMMENT '完成时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of task
--- ----------------------------
-INSERT INTO `task` VALUES (1, 1, 1, 1, 1600307060, 1600307087);
-INSERT INTO `task` VALUES (2, 1, 2, 1, 1600307124, 1600307127);
-INSERT INTO `task` VALUES (3, 1, 1, 2, 1600307124, 1600307127);
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for team
@@ -490,7 +484,7 @@ DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(2) NOT NULL COMMENT '1静态收益,2动态收益,3团队收益',
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0未发放,1已发放',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1未发放,2已发放',
   `price` decimal(10, 2) NOT NULL COMMENT '发放金额',
   `contract_id` int(11) NOT NULL COMMENT '合约id',
   `user_id` int(11) NOT NULL COMMENT '结算给谁',

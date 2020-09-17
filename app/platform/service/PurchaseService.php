@@ -134,6 +134,7 @@ class PurchaseService extends Service
             ->find();
         $data = array(
             'type'          => 1,
+            'status'        => 1,
             'price'         => $contract['interest'],
             'contract_id'   => $contract_id,
             'user_id'       => $contract['user_id']
@@ -188,6 +189,7 @@ class PurchaseService extends Service
                         //插入数据库
                         $data = array(
                             'type'          => 2,
+                            'status'        => 1,
                             'price'         => $user_dynamic,
                             'contract_id'   => $contract_id,
                             'user_id'       => $now_user_id
@@ -222,7 +224,7 @@ class PurchaseService extends Service
             ->where('type',1)
             ->lock(true)
             ->find();
-        if($tran['status'] == 0){
+        if($tran['status'] == 1){
             //发放收益和本金
             $balance = $contract['price'] + $contract['interest'];
             $res = Capital::where('user_id',$contract['user_id'])
@@ -233,7 +235,7 @@ class PurchaseService extends Service
                 trace('用户ID='.$contract['user_id'].',本金和收益发放失败！','error');
                 return false;
             }
-            $tran->status = 1;
+            $tran->status = 2;
             $tran->fulfil_time = time();
             $res = $tran->save();
             if(!$res){
@@ -255,7 +257,7 @@ class PurchaseService extends Service
     //查询需要发放的动态收益数据
         $list = Transaction::where('contract_id',$contract_id)
             ->where('type',2)
-            ->where('status',0)
+            ->where('status',1)
             ->lock(true)
             ->select();
         foreach ($list as $key => $val){
@@ -263,7 +265,7 @@ class PurchaseService extends Service
             $status = Transaction::where('id',$val['id'])
                 ->lock(true)
                 ->value('status');
-            if($status == 0){
+            if($status == 1){
                 //发放收益
                 $price = $val['price'];
                 $res = Capital::where('user_id',$val['user_id'])
@@ -275,7 +277,7 @@ class PurchaseService extends Service
                     return false;
                 }
                 //修改收益发放记录
-                $val->status = 1;
+                $val->status = 2;
                 $val->fulfil_time = time();
                 $res = $val->save();
                 if(!$res){

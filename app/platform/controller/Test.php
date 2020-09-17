@@ -16,6 +16,7 @@ use app\common\model\Dynamic;
 use app\common\service\SendService;
 use app\common\service\SocketService;
 use app\common\service\Validate;
+use app\platform\service\ContractService;
 use app\platform\service\DemoService;
 use app\common\model\TradeOrder;
 use app\platform\service\MarketService;
@@ -28,9 +29,11 @@ use think\facade\Db;
 class Test extends BaseController
 {
 
-    public function index(Validate $validate,UsersService $usersService){
+    public function index(ContractService $contractService){
         $param = $this->request->param();
-        return $id = $usersService->emailID('773901011@qq.com');
+        $where = [];
+        $where[] = ['email','=','11'];
+        return $res = $contractService->test();
 
         //TP6各个文件定义解析：
         //controller 处理入参（表单验证，参数过滤，参数包装）

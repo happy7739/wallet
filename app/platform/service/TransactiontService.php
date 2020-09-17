@@ -15,7 +15,15 @@ class TransactiontService extends Service
      * @throws \think\db\exception\DbException
      */
     public function lists($where){
-        return Transaction::lists($where,[],['userTransaction'],'');
+        return Transaction::lists($where,[],['userTransaction'],'user_id');
+    }
+
+    /**聚合求和
+     * @param string $field 统计求和的字段
+     * @return float|\think\db\BaseQuery
+     */
+    public function getSum($field){
+        return Transaction::getSum($field);
     }
 
     /**删除
