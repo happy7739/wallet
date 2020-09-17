@@ -24,6 +24,6 @@ class Contract extends BaseModel
     }
 
     public function getEndTimeAttr($name){
-        return $name > 0 ? $this->getCreateTimeAttr($name) : $name;
+        return $name > 0 ? $this->getCreateTimeAttr($name) : '-';
     }
 }

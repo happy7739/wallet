@@ -40,7 +40,6 @@ abstract class BaseModel extends Model
             $lists = $lists->where($op[0],$op[1],$op[2]);
         }
         return $lists->with($with)->hidden($hidden)->paginate(input('limit','10'));
-
     }
 
     /**

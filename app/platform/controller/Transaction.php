@@ -18,17 +18,20 @@ class Transaction extends BaseController
         try{
             $where = [];
             if(array_key_exists('email',$this->param) && $this->param['email']){
-                $id = $usersService->emailID($this->param['email']);
-                $where[] = ['user_id','=',$id];
+                $ids = $usersService->emailID($this->param['email']);
+                $where[] = ['user_id','in',$ids];
             }
             array_key_exists('type',$this->param) && $this->param['type'] and $where[] = ['type','=',$this->param['type']];
             array_key_exists('status',$this->param) && $this->param['status'] and $where[] = ['status','=',$this->param['status']];
+            array_key_exists('start',$this->param) && $this->param['start'] and $where[] = ['create_time','>',strtotime($this->param['start'])];
+            array_key_exists('end',$this->param) && $this->param['end'] and $where[] = ['create_time','<',strtotime($this->param['end'])];
             $lists = $transactiontService->lists($where);
-            $total_price = $transactiontService->getSum('price');
+            $total_price = $transactiontService->getSum('price',$where);
             $totalRow = array(
+                'email' => '共计：',
                 'price' => $total_price
             );
-            return totalRow('ok',$lists,StatusCode::$SUCCESS,$totalRow);
+            return result($totalRow,$lists,StatusCode::$SUCCESS);
         }catch (\Throwable $throwable){
             return result($throwable->getMessage(),StatusCode::$FAIL);
         }

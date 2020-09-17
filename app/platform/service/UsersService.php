@@ -132,7 +132,12 @@ class UsersService extends Service
      * @return mixed
      */
     public function emailID(string $email){
-        $id = Users::where('email',$email)->value('id');
-        return $id;
+        $list = Users::where('email','like',"%$email%")->field('id')->select();
+        $str = '';
+        foreach ($list as $key => $val){
+            $str = $str.$val['id'].',';
+        }
+        $ids = rtrim($str,',');
+        return $ids;
     }
 }

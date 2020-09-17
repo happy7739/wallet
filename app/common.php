@@ -66,17 +66,6 @@ if(!function_exists('result')){
     }
 }
 
-if(!function_exists('totalRow')){
-    function totalRow($msg,$data = null,$code = null,$totalRow = []){
-        if(is_numeric($data)){
-            $code = $data;
-            $data = null;
-        }
-        is_null($code) and $code = StatusCode::$FAIL;
-        return json(['code'=>$code,'msg'=>$msg,'data'=>$data,'totalRow'=>$totalRow]);
-    }
-}
-
 if(!function_exists('imgCode')){
     /**
      * 生成图形验证码

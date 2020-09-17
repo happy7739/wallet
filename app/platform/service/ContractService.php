@@ -20,10 +20,11 @@ class ContractService extends Service
 
     /**聚合求和
      * @param string $field 统计求和的字段
+     * @param bool|array $where 统计限制 [['id','=','1'],...]
      * @return float|\think\db\BaseQuery
      */
-    public function getSum($field){
-        return Contract::getSum($field);
+    public function getSum($field,$where = true){
+        return Contract::getSum($field,$where);
     }
 
     /**删除

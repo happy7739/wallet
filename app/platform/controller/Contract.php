@@ -15,20 +15,24 @@ class Contract extends BaseController
      * @return \think\response\Json
      */
     public function lists(ContractService $contractService,UsersService $usersService){
+        //return $this->param;
         try{
             $where = [];
             if(array_key_exists('email',$this->param) && $this->param['email']){
-                $id = $usersService->emailID($this->param['email']);
-                $where[] = ['user_id','=',$id];
+                $ids = $usersService->emailID($this->param['email']);
+                $where[] = ['user_id','in',$ids];
             }
+            array_key_exists('start',$this->param) && $this->param['start'] and $where[] = ['create_time','>',strtotime($this->param['start'])];
+            array_key_exists('end',$this->param) && $this->param['end'] and $where[] = ['create_time','<',strtotime($this->param['end'])];
             $lists = $contractService->lists($where);
-            $total_price = $contractService->getSum('price');
-            $total_interest = $contractService->getSum('interest');
+            $total_price = $contractService->getSum('price',$where);
+            $total_interest = $contractService->getSum('interest',$where);
             $totalRow = array(
+                'email' => '共计：',
                 'price' => $total_price,
                 'interest' => $total_interest
             );
-            return totalRow('ok',$lists,StatusCode::$SUCCESS,$totalRow);
+            return result($totalRow,$lists,StatusCode::$SUCCESS);
         }catch (\Throwable $throwable){
             return result($throwable->getMessage(),StatusCode::$FAIL);
         }

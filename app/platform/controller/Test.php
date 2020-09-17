@@ -29,11 +29,8 @@ use think\facade\Db;
 class Test extends BaseController
 {
 
-    public function index(ContractService $contractService){
+    public function index(Transaction $transaction){
         $param = $this->request->param();
-        $where = [];
-        $where[] = ['email','=','11'];
-        return $res = $contractService->test();
 
         //TP6各个文件定义解析：
         //controller 处理入参（表单验证，参数过滤，参数包装）

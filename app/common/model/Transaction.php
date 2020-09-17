@@ -23,6 +23,6 @@ class Transaction extends BaseModel
     }
 
     public function getFulfilTimeAttr($name){//fulfil_time
-        return $name > 0 ? $this->getCreateTimeAttr($name) : $name;
+        return $name > 0 ? $this->getCreateTimeAttr($name) : '-';
     }
 }
