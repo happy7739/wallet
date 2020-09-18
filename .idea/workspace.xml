@@ -3,16 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="f6ed624b-f20e-47df-a782-6078e228aa91" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/common.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/model/BaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/model/BaseModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/model/Contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/model/Contract.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/common/model/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/model/Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/platform/controller/Contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/controller/Contract.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/controller/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/controller/Purchase.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/platform/controller/Test.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/controller/Test.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/platform/controller/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/controller/Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/platform/service/ContractService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/service/ContractService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/controller/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/controller/Users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/route/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/route/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/platform/service/TransactiontService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/service/TransactiontService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/platform/service/UsersService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/service/UsersService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/platform/validate/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/platform/validate/User.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +126,8 @@
       <workItem from="1600130990651" duration="31227000" />
       <workItem from="1600217751816" duration="27153000" />
       <workItem from="1600303502092" duration="12383000" />
-      <workItem from="1600321908972" duration="14830000" />
+      <workItem from="1600321908972" duration="15071000" />
+      <workItem from="1600390775771" duration="7524000" />
     </task>
     <servers />
   </component>
@@ -136,10 +135,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="280" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600333732758">
+    <state x="690" y="280" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600396665585">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="690" y="280" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1600333732758" />
+    <state x="690" y="280" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1600396665585" />
     <state x="740" y="280" key="FileChooserDialogImpl" timestamp="1600322476033">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

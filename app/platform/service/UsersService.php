@@ -24,17 +24,24 @@ class UsersService extends Service
     /**注册账号
      * @param $email
      * @param $password
-     * @param int $pid
+     * @param $invite_code
+     * @param null $superior
      * @return bool|void
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      */
-    public function register($email , $password , $pid = 0){
+    public function register($email , $password , $invite_code ,$superior = null){
         $user = new Users;
-        $user->password = Rsa::encode($password);
         $user->email = $email;
+        $user->password = Rsa::encode($password);
+        if($superior == null){
+            $pid = 0;
+        }else{
+            $pid = Users::where('invite_code','=',$superior)->value('id');
+        }
         $user->pid = $pid;
+        $user->invite_code = $invite_code;
         $res = $user->save();
         $user_id = $user->id;
         if($res){

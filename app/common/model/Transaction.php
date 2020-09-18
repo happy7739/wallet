@@ -25,4 +25,8 @@ class Transaction extends BaseModel
     public function getFulfilTimeAttr($name){//fulfil_time
         return $name > 0 ? $this->getCreateTimeAttr($name) : '-';
     }
+
+    public function ContractEmail(){
+        return $this->hasOne('contract','id','contract_id')->with('userContract')->bind(['invite_email'=>'email']);
+    }
 }

@@ -18,7 +18,7 @@ class User extends BaseValidate
 	    'id' => 'require',
         'email' => 'require|email',
 	    'password' =>  'require|alphaNum|length:6,18',
-        'invitation' => 'require|number',
+        'invite_code' => 'require|alphaNum|length:6',
         'transaction' => 'require|number|transRule',
      ];
 
@@ -34,8 +34,9 @@ class User extends BaseValidate
         'email.email' => '邮箱格式不正确',
         'password.require' => '请输入密码',
         'password.length' => '密码的长度输入不正确',
-        'invitation.require' => '请输入邀请码',
-        'invitation.number' => '邀请码格式不正确',
+        'invite_code.require' => '请输入邀请码',
+        'invite_code.alphaNum' => '邀请码格式不正确',
+        'invite_code.length' => '邀请码的长度输入不正确',
         'transaction.number' => '交易密码只能为数字',
 
     ];

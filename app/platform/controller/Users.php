@@ -8,6 +8,7 @@ use app\platform\service\UsersService;
 use app\common\service\Validate;
 use app\common\controller\StatusCode;
 use org\Rsa;
+use think\helper\Str;
 use think\exception\ValidateException;
 
 class Users extends BaseController
@@ -31,7 +32,7 @@ class Users extends BaseController
             $validate = $validateService->exist($this->param['email'],'users','email',true);
             if($validate === false){
                 rollback();
-                return result('账号错误');
+                return result('账号或密码错误');
             }
             //验证密码
             $res = $usersService->verifyPwd($this->param['email'],$this->param['password']);
@@ -40,7 +41,7 @@ class Users extends BaseController
                 $token = $usersService->getToken($this->param['email']);
                 return result(lang('Login successful'),['token'=>$token],StatusCode::$SUCCESS) ;
             }else{
-                return result(lang('Password error')) ;
+                return result('账号或密码错误');
             }
         }catch (ValidateException $validate){
             //验证反馈
@@ -71,12 +72,17 @@ class Users extends BaseController
                 return result('账号已存在');
             }
             //验证邀请码是否存在
-            $validate = $validateService->exist($this->param['invitation'],'users','id',true);
+            $validate = $validateService->exist($this->param['invite_code'],'users','invite_code',true);
             if(!$validate === true){
                 rollback();
                 return result('邀请码错误');
             }
-            $res = $usersService->register($this->param['email'],$this->param['password'],$this->param['invitation']);
+            //产生邀请码
+            do {
+                $invite_code = Str::random(6);
+                $res = $validateService->exist($invite_code,'users','invite_code',true);
+            }while($res);
+            $res = $usersService->register($this->param['email'],$this->param['password'],$invite_code,$this->param['invite_code']);
             if($res){
                 commit();
                 return result('注册成功',StatusCode::$SUCCESS);
@@ -111,7 +117,12 @@ class Users extends BaseController
                 rollback();
                 return result('账号已存在');
             }
-            $res = $usersService->register($this->param['email'],$this->param['password']);
+            //产生邀请码
+            do {
+                $invite_code = Str::random(6);
+                $res = $validateService->exist($invite_code,'users','invite_code',true);
+            }while($res);
+            $res = $usersService->register($this->param['email'],$this->param['password'],$invite_code);
             if($res){
                 commit();
                 return result('添加成功',StatusCode::$SUCCESS);
@@ -136,6 +147,8 @@ class Users extends BaseController
      */
     public function resetPwd(UsersService $usersService,Validate $validateService){
         try{
+            $user = cache($this->param['token']);
+            $user_id = $user->id;
             $this->param = $this->request->param();
             //return result('test',$this->param);
             startTrans();
@@ -154,7 +167,7 @@ class Users extends BaseController
             $data = array(
                 'password' => Rsa::encode($this->param['password']),
             );
-            $res = $usersService->reset($this->param['id'],$data);
+            $res = $usersService->reset($user_id,$data);
             if($res){
                 commit();
                 return result('修改成功',StatusCode::$SUCCESS);
@@ -179,6 +192,8 @@ class Users extends BaseController
      */
     public function resetTrans(UsersService $usersService,Validate $validateService){
         try{
+            $user = cache($this->param['token']);
+            $user_id = $user->id;
             startTrans();
             $this->validate($this->param,'User.transaction');
             //验证邮箱是否已注册
@@ -196,7 +211,7 @@ class Users extends BaseController
             $data = array(
                 'transaction' => Rsa::encode($this->param['transaction']),
             );
-            $res = $usersService->reset($this->param['id'],$data);
+            $res = $usersService->reset($user_id,$data);
             if($res){
                 commit();
                 return result('修改成功',StatusCode::$SUCCESS);

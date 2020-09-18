@@ -15,7 +15,7 @@ class TransactiontService extends Service
      * @throws \think\db\exception\DbException
      */
     public function lists($where){
-        return Transaction::lists($where,[],['userTransaction'],'user_id');
+        return Transaction::lists($where,[],['userTransaction','ContractEmail'],'user_id,contract_id');
     }
 
     /**聚合求和

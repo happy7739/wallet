@@ -44,10 +44,6 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         Route::post('/usersRegister','Users/register');
         //添加用户
         Route::post('/usersAdd','Users/addUsers');
-        //重置用户登录密码
-        Route::post('/reset_pwd','Users/resetPwd');
-        //重置用户交易密码
-        Route::post('/reset_ta','Users/resetTrans');
         //编辑用户状态
         Route::post('/usersStatus','Users/status');
         //删除用户
@@ -86,6 +82,10 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
     })->middleware(VisitLimit::class);
 
     Route::group(function (){
+        //重置用户登录密码
+        Route::post('/reset_pwd','Users/resetPwd');
+        //重置用户交易密码
+        Route::post('/reset_ta','Users/resetTrans');
         //购买合约
         Route::post('/purchase','Purchase/index');
 

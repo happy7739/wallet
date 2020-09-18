@@ -4,7 +4,6 @@
 namespace app\platform\controller;
 
 
-use app\common\model\Contract;
 use app\common\service\Validate;
 use app\common\controller\StatusCode;
 use app\platform\service\PurchaseService;
@@ -14,7 +13,8 @@ class Purchase extends BaseController
 {
     //购买合约  传入合约ID  获取用户ID
     public function index(Validate $validateService,PurchaseService $purchaseService){
-        $user_id = request()->userId;
+        $user = cache($this->param['token']);
+        $user_id = $user->id;
         //判断用户是否是第一次购买 ？ 直接购买（计算结算收益）：发放上一次购买收益、计算本次结算收益
         //判断用户余额是否充足
         //判断上一次合约是否结束
