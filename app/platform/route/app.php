@@ -136,3 +136,26 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         return '4042 Not Found!';
     });
 })->middleware([LoadLangPack::class])->allowCrossDomain();
+
+Route::domain(env('route.platform','user.xiaoziyan.cc'), function () {
+    // 动态注册域名的路由规则
+    //无需验证权限
+    Route::group('index/',function (){
+        //用户登录
+        Route::post('/usersLogin','Users/login');
+        //用户注册
+        Route::post('/usersRegister','Users/register');
+    })->middleware(VisitLimit::class);
+    Route::group(function (){
+        //重置用户登录密码
+        Route::post('/reset_pwd','Users/resetPwd');
+        //重置用户交易密码
+        Route::post('/reset_ta','Users/resetTrans');
+        //购买合约
+        Route::post('/purchase','Purchase/index');
+    })->middleware([CheckUserToken::class,VisitLimit::class]);
+
+    Route::miss(function() {
+        return '404 Not Found!';
+    });
+})->middleware([LoadLangPack::class])->allowCrossDomain();

@@ -15,7 +15,6 @@ class User extends BaseValidate
      * @var array
      */
 	protected $rule = [
-	    'id' => 'require',
         'email' => 'require|email',
 	    'password' =>  'require|alphaNum|length:6,18',
         'invite_code' => 'require|alphaNum|length:6',
@@ -29,7 +28,6 @@ class User extends BaseValidate
      * @var array
      */
     protected $message = [
-        'id.require' => '未传入ID',
         'email.require' => '请输入邮箱',
         'email.email' => '邮箱格式不正确',
         'password.require' => '请输入密码',
@@ -44,8 +42,8 @@ class User extends BaseValidate
     protected $scene = [
         'login' => ['email','password'],
         'addUsers' => ['email','password'],
-        'register' => ['email','password','invitation'],
-        'password' => ['id','email','password'],
-        'transaction' => ['id','email','transaction'],
+        'register' => ['email','password','invite_code'],
+        'password' => ['password'],
+        'transaction' => ['transaction'],
     ];
 }

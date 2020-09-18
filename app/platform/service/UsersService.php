@@ -103,7 +103,6 @@ class UsersService extends Service
     /**
      * 编辑用户状态
      * @param int $id
-     * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -136,7 +135,10 @@ class UsersService extends Service
 
     /**邮箱转ID
      * @param string $email
-     * @return mixed
+     * @return string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
      */
     public function emailID(string $email){
         $list = Users::where('email','like',"%$email%")->field('id')->select();

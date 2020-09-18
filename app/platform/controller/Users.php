@@ -153,12 +153,6 @@ class Users extends BaseController
             //return result('test',$this->param);
             startTrans();
             $this->validate($this->param,'User.password');
-            //验证邮箱是否已注册
-            $validate = $validateService->exist($this->param['email'],'users','email',true);
-            if(!$validate === true){
-                rollback();
-                return result('账号错误');
-            }
             $validate = $validateService->rule($this->param['password']);
             if(!$validate === true){
                 rollback();
@@ -196,12 +190,6 @@ class Users extends BaseController
             $user_id = $user->id;
             startTrans();
             $this->validate($this->param,'User.transaction');
-            //验证邮箱是否已注册
-            $validate = $validateService->exist($this->param['email'],'users','email',true);
-            if(!$validate === true){
-                rollback();
-                return result('账号错误');
-            }
             //密码验证 加密
             $validate = $validateService->rule($this->param['transaction']);
             if(!$validate === true){
