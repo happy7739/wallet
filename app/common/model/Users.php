@@ -24,6 +24,6 @@ class Users extends BaseModel
     }
 
     public function users(){
-        return $this->hasOne('users','pid')->bind(['invite_email'=>'email']);
+        return $this->hasOne('users','id','pid')->bind(['invite_email'=>'email']);
     }
 }
