@@ -131,7 +131,7 @@ Route::domain(env('route.platform','adnser.xiaoziyan.cc'), function () {
         Route::post('/transactionDel','Transaction/del');//删除收益发放记录
 
         Route::get('/usersLists','Users/lists');//用户列表
-        Route::post('usersAdd','Users/add');//添加用户
+        Route::post('/usersAdd','Users/addUsers');//添加用户
 
     })->middleware([CheckAdminToken::class,Power::class,Sign::class,VisitLimit::class]);
 
