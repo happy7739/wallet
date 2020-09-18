@@ -4,24 +4,26 @@
 namespace app\platform\service;
 
 
-use app\common\model\Contract;
+use app\common\model\Transaction;
 use think\Service;
 
-class ContractService extends Service
+class TransactionService extends Service
 {
-    /**合约列表
+    /**收益发放记录列表
      * @param $where
      * @return \think\Paginator
      * @throws \think\db\exception\DbException
      */
     public function lists($where){
-        return Contract::lists($where,[],['userContract'],'user_id');
+        return Transaction::lists($where,[],['userTransaction','ContractEmail'],'user_id,contract_id');
     }
 
-    //用户已购买合约列表
+    //用户获取收益发放记录
     public function userSelect($user_id){
-        return Contract::where('user_id',$user_id)
-            ->hidden(['user_id','del_time'])
+        return Transaction::with(['userTransaction','ContractEmail'])
+            ->where('user_id',$user_id)
+            ->where('status',2)
+            ->hidden(['status','email','user_id','contract_id','del_time'])
             ->select();
     }
 
@@ -31,8 +33,9 @@ class ContractService extends Service
      * @return float|\think\db\BaseQuery
      */
     public function getSum($field,$where = true){
-        return Contract::getSum($field,$where);
+        return Transaction::getSum($field,$where);
     }
+
 
     /**删除
      * @param int $id
@@ -42,6 +45,6 @@ class ContractService extends Service
      * @throws \think\db\exception\ModelNotFoundException
      */
     public function del(int $id){
-        return Contract::del($id);
+        return Transaction::del($id);
     }
 }

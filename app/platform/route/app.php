@@ -145,14 +145,22 @@ Route::domain(env('route.platform','user.xiaoziyan.cc'), function () {
         Route::post('/usersLogin','Users/login');
         //用户注册
         Route::post('/usersRegister','Users/register');
+        Route::get('/profitLists','Profit/userSelect');//合约配置数据列表
     })->middleware(VisitLimit::class);
+
     Route::group(function (){
+        //获取邀请码
+        Route::post('/invite_code','Users/inviteCode');
         //重置用户登录密码
         Route::post('/reset_pwd','Users/resetPwd');
         //重置用户交易密码
         Route::post('/reset_ta','Users/resetTrans');
         //购买合约
         Route::post('/purchase','Purchase/index');
+        //获取已购买合约记录数据列表
+        Route::post('/contractLists','Contract/userSelect');
+        //用户获取收益发放记录数据列表
+        Route::post('/transaction','Transaction/userSelect');
     })->middleware([CheckUserToken::class,VisitLimit::class]);
 
     Route::miss(function() {

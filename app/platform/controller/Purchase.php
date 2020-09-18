@@ -15,7 +15,6 @@ class Purchase extends BaseController
     public function index(Validate $validateService,PurchaseService $purchaseService){
         $user = cache($this->param['token']);
         $user_id = $user->id;
-        //判断用户是否是第一次购买 ？ 直接购买（计算结算收益）：发放上一次购买收益、计算本次结算收益
         //判断用户余额是否充足
         //判断上一次合约是否结束
         try{

@@ -207,7 +207,7 @@ CREATE TABLE `contract`  (
   `end_time` int(11) NULL DEFAULT NULL COMMENT '结束时间',
   `del_time` int(11) NULL DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '合约记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '合约记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for dynamic
@@ -357,7 +357,7 @@ CREATE TABLE `relationship`  (
   `sp_id` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '关系格式：,A_id,B_id,C_id,(上级所有ID)',
   `stratum` int(11) NOT NULL COMMENT '层级',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '会员关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '会员关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of relationship
@@ -400,14 +400,14 @@ CREATE TABLE `roles`  (
   `delete_time` int(11) NULL DEFAULT NULL,
   `is_default` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of roles
 -- ----------------------------
 INSERT INTO `roles` VALUES (1, '超级管理员', '最高管理员', 1598926865, NULL, 1);
-INSERT INTO `roles` VALUES (4, '测试角色', '123456', 1598942979, NULL, 0);
-INSERT INTO `roles` VALUES (5, '测试角色2', '哇哈哈啊哈123', 1598943191, NULL, 0);
+INSERT INTO `roles` VALUES (2, '测试角色', '123456', 1598942979, NULL, 0);
+INSERT INTO `roles` VALUES (3, '测试角色2', '哇哈哈啊哈123', 1598943191, NULL, 0);
 
 -- ----------------------------
 -- Table structure for roles_power
@@ -456,7 +456,7 @@ CREATE TABLE `task`  (
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   `end_time` int(11) NULL DEFAULT NULL COMMENT '完成时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for team
@@ -500,7 +500,7 @@ CREATE TABLE `transaction`  (
   `fulfil_time` int(11) NULL DEFAULT NULL COMMENT '发放时间',
   `del_time` int(11) NULL DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收益发放记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收益发放记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for users
@@ -518,7 +518,7 @@ CREATE TABLE `users`  (
   `invite_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邀请码',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `登录账号`(`email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users

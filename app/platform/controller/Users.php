@@ -217,6 +217,12 @@ class Users extends BaseController
         }
     }
 
+    //获取邀请码
+    public function inviteCode(){
+        $user = cache($this->param['token']);
+        return $user->invite_code;
+    }
+
     /**删除用户
      * @param UsersService $usersService
      * @return \think\response\Json

@@ -24,18 +24,23 @@ class PurchaseService extends Service
      * @throws \think\db\exception\ModelNotFoundException
      */
     public function expire(int $user_id){
-        $contract = Contract::where('user_id',$user_id)
-            ->where('end_time')
+        $contract = Contract::where('user_id','=',$user_id)
+            ->order('id','desc')
             ->field('create_time,cycle')
             ->find();
-        //判断合约是否结束
-        $create_time = strtotime($contract['create_time']);
-        $end_time = $create_time + $contract['cycle'] * 86400;
-        if($end_time > time()){
-            return false;
+        if($contract){
+            //判断合约是否结束
+            $create_time = strtotime($contract['create_time']);
+            $end_time = $create_time + $contract['cycle'] * 86400;
+            if($end_time > time()){
+                return false;
+            }else{
+                return true;
+            }
         }else{
             return true;
         }
+
     }
 
     /**判断余额是否充足
@@ -78,7 +83,7 @@ class PurchaseService extends Service
         }
         //获取上次合约信息ID
         $up_interest_id = Contract::where('user_id',$user_id)
-            ->where('end_time')
+            ->order('id','desc')
             ->value('id');
         if($up_interest_id){//创建计划任务
             $task = array(

@@ -7,8 +7,20 @@ use think\Service;
 
 class ProfitService extends Service
 {
+    /**数据列表
+     * @param $where
+     * @return \think\Paginator
+     * @throws \think\db\exception\DbException
+     */
     public function lists($where){
-        return Profit::lists($where);
+        return Profit::lists($where,['id'=>'asc']);
+    }
+
+    //查询给用户看的数据
+    public function userSelect(){
+        return Profit::where('status',0)
+            ->field('id,price,cycle,profit')
+            ->select();
     }
 
     /**新增数据

@@ -38,6 +38,18 @@ class Contract extends BaseController
         }
     }
 
+    //用户获取已购买合约
+    public function userSelect(ContractService $contractService){
+        try{
+            $user = cache($this->param['token']);
+            $user_id = $user->id;
+            $lists = $contractService->userSelect($user_id);
+            return result('ok',$lists,StatusCode::$SUCCESS);
+        }catch (\Throwable $throwable){
+            return result($throwable->getMessage(),StatusCode::$FAIL);
+        }
+    }
+
     /**删除
      * @param ContractService $contractService
      * @return \think\response\Json

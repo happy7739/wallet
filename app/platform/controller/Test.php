@@ -33,7 +33,11 @@ class Test extends BaseController
     public function index(Validate $validate){
         $param = $this->request->param();
 
-        return Str::random(6);
+        return Transaction::with(['userTransaction','ContractEmail'])
+            ->where('user_id',2)
+            ->where('status',2)
+            ->hidden(['user_id','contract_id','del_time'])
+            ->select();
         //TP6各个文件定义解析：
         //controller 处理入参（表单验证，参数过滤，参数包装）
         //service 注入到controller 处理业务。采用一个service处理一个业务，复杂业务或者核心业务采用一个方法对应一个小步骤的写法，高度解耦程序

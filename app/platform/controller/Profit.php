@@ -25,6 +25,16 @@ class Profit extends BaseController
         }
     }
 
+    //查询给用户看的数据
+    public function userSelect(ProfitService $profitService){
+        try{
+            $lists = $profitService->userSelect();
+            return result('ok',$lists,StatusCode::$SUCCESS);
+        }catch (\Throwable $throwable){
+            return result($throwable->getMessage(),StatusCode::$FAIL);
+        }
+    }
+
     /**新增
      * @param ProfitService $profitService
      * @param Validate $validateService

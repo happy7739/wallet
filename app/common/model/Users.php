@@ -22,4 +22,8 @@ class Users extends BaseModel
     public function capital(){
         return $this->hasOne('capital','user_id')->bind(['balance','fund']);
     }
+
+    public function users(){
+        return $this->hasOne('users','pid')->bind(['invite_email'=>'email']);
+    }
 }
