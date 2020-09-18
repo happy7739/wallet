@@ -116,7 +116,7 @@ class Users extends BaseController
      */
     public function addUsers(UsersService $usersService,Validate $validateService){
         try{
-            $this->param = $this->request->param();
+            //$this->param = $this->request->param();
             //return result('test',$this->param);
             startTrans();
             $this->validate($this->param,'User.addUsers');
