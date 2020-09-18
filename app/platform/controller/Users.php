@@ -13,8 +13,17 @@ use think\exception\ValidateException;
 
 class Users extends BaseController
 {
-    public function lists(){
-
+    public function lists(UsersService $usersService){
+        try{
+            $where = [];
+            array_key_exists('email',$this->param) && $this->param['email'] and $where[] = ['email','like','%'.$this->param['email'].'%'];
+            array_key_exists('start',$this->param) && $this->param['start'] and $where[] = ['create_time','>',strtotime($this->param['start'])];
+            array_key_exists('end',$this->param) && $this->param['end'] and $where[] = ['create_time','<',strtotime($this->param['end'])];
+            $lists = $usersService->lists($where);
+            return result('ok',$lists,StatusCode::$SUCCESS);
+        }catch (\Throwable $throwable){
+            return result($throwable->getMessage(),StatusCode::$FAIL);
+        }
     }
 
     /**登录

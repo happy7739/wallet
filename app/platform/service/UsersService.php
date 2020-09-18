@@ -11,6 +11,14 @@ use think\Service;
 
 class UsersService extends Service
 {
+    /**用户列表
+     * @param $where
+     * @return \think\Paginator
+     * @throws \think\db\exception\DbException
+     */
+    public function lists($where){
+        return Users::lists($where,[],['users'],'password,del_time,transaction');
+    }
     /**登录验证密码
      * @param string $email
      * @param string $password
