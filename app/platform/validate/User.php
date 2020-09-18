@@ -16,7 +16,7 @@ class User extends BaseValidate
      */
 	protected $rule = [
         'email' => 'require|email',
-	    'password' =>  'require|alphaNum|length:6,18',
+	    'password' =>  'require|length:6,18',
         'invite_code' => 'require|alphaNum|length:6',
         'transaction' => 'require|number|transRule',
      ];
