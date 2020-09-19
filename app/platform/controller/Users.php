@@ -232,6 +232,22 @@ class Users extends BaseController
         return $user->invite_code;
     }
 
+    //查询下级
+    public function subordinate(UsersService $usersService){
+        $user = cache($this->param['token']);
+        $user_id = $user->id;
+        try{
+            $lists = $usersService->subordinate($user_id);
+            $data = array(
+                'lists'     => $lists,
+                'total'    => count($lists)
+            );
+            return result('ok',$data,StatusCode::$SUCCESS);
+        }catch (\Throwable $throwable){
+            return result($throwable->getMessage(),StatusCode::$FAIL);
+        }
+    }
+
     /**删除用户
      * @param UsersService $usersService
      * @return \think\response\Json

@@ -19,6 +19,20 @@ class UsersService extends Service
     public function lists($where){
         return Users::lists($where,[],['users'],'password,del_time,transaction');
     }
+
+    /**查询下级
+     * @param $user_id
+     * @return \think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
+    public function subordinate($user_id){
+        return Users::where('pid','=',$user_id)
+            ->field('email,create_time')
+            ->select();
+    }
+
     /**登录验证密码
      * @param string $email
      * @param string $password
